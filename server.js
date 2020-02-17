@@ -21,12 +21,13 @@ app.get('/', (req, res) => {
 })
 
 const ticketRoutes = require('./server/routes/ticket.routes')
-app.use('/tickets', ticketRoutes)
+app.use('/api/tickets', ticketRoutes)
 
 
 
 //Connect to MongoDB
-mongoose.connect('mongodb://127.0.0.1:27018/users',{ useUnifiedTopology: true,  useNewUrlParser: true })
+mongoose.connect('mongodb://127.0.0.1:27018/users',
+    { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false })
 const connection = mongoose.connection
 connection.once('open', () => {
     console.log('MongoDB Connection established succesfully')
