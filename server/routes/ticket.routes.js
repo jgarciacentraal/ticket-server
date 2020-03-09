@@ -12,20 +12,33 @@ router.get('/', async (req, res) => {
        }
 })
 
-router.post('/', async (req, res) => {
-    let ticket = new Ticket({
-        user_id: req.body.user_id,
-        title: req.body.title,
-        message: req.body.message,
-        ans: req.body.ans
-     })
 
-     try {
-         const newticket = await ticket.save()
-         res.status(200).json(newticket)
-     } catch (error) {
+// // Create ticket 
+// router.post('/', async (req, res) => {
+//     let ticket = new Ticket({
+//         user_id: req.body.user_id,
+//         title: req.body.title,
+//         message: req.body.message
+//         // ans: req.body.ans
+//      })
+
+//      try {
+//          const newticket = await ticket.save()
+//          res.status(200).json(newticket)
+//      } catch (error) {
+//         res.status(500).json({ message: error.message })
+//      }
+// })
+
+router.post('/', async (req, res) => {
+    try {
+        const { user_id, title, message } = req.body
+        const ticket = new Ticket({ user_id, title, message })
+        await ticket.save()
+        res.json({ status: 'Ticket saved' })
+    } catch (error) {
         res.status(500).json({ message: error.message })
-     }
+    }
 })
 
 
@@ -62,7 +75,7 @@ router.put('/:id',async (req, res) => {
 
  })
 
-
+// Delete ticket by Id
 router.delete('/:id', async (req, res) => {
 
     try {

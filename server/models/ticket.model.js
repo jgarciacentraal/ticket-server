@@ -13,9 +13,6 @@ let ticketSchema = new Schema({
     message: {
         type: String,
         require: true
-    },
-    ans: {
-        type: String
     }
 })
 
